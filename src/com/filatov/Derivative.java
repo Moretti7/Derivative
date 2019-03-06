@@ -1,10 +1,8 @@
 package com.filatov;
 
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
-
 public class Derivative implements Function {
-    private Expression expression;
+
+    private double parametrA;
 
     public double derivative(double x, double e) {
         double h = 0.1;
@@ -26,12 +24,14 @@ public class Derivative implements Function {
         return two;
     }
 
-    public void setFunction(String function) {
-        this.expression = new ExpressionBuilder(function).variables("x").build();
+    public void setA(double a){
+        this.parametrA = a;
     }
+
 
     @Override
     public double f(double x) {
-        return expression.setVariable("x", x).evaluate();
+        return Math.exp(-parametrA*x*x)*Math.sin(x);
     }
+
 }
