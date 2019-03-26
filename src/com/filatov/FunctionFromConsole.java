@@ -5,10 +5,10 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.util.Scanner;
 
-public class DerivativeFromConsole extends Derivative {
+public class FunctionFromConsole implements Function{
     private Expression expression;
 
-    public DerivativeFromConsole(String function){
+    public FunctionFromConsole(String function){
         this.expression = new ExpressionBuilder(function).variables("x").build();
     }
 
@@ -21,16 +21,18 @@ public class DerivativeFromConsole extends Derivative {
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.print("Enter the function: ");
-            String function = scanner.nextLine();
-            if(function.equals("close"))
+            String functionFromConsole = scanner.nextLine();
+            if(functionFromConsole.equals("close"))
                 break;
-            Derivative derivative = new DerivativeFromConsole(function);
+
+            Function function = new FunctionFromConsole(functionFromConsole);
+
             System.out.print("Enter x value: ");
             double x = Double.parseDouble(scanner.nextLine());
             System.out.print("Enter E value: ");
             double e = Double.parseDouble(scanner.nextLine());
 
-            System.out.println(derivative.derivative(x, e));
+            System.out.println(Derivative.derivative(function, x, e));
         }
     }
 }
